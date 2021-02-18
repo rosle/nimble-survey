@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useState } from 'react';
+import { login } from 'services/api/auth';
 
 const Login = () => {
   const [formErrors, setFormErrors] = useState([]);
@@ -8,21 +8,16 @@ const Login = () => {
     event.preventDefault();
     setFormErrors([]);
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_API_URL}/api/v1/oauth/token`,
-        {
-          grant_type: 'password',
-          email: document.getElementById('email').value,
-          password: document.getElementById('password').value,
-          client_id: process.env.REACT_APP_CLIENT_ID,
-          client_secret: process.env.REACT_APP_CLIENT_SECRET,
-        }
-      );
+    const credentials = {
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value,
+    };
 
+    try {
+      const response = await login(credentials);
       console.log(response);
     } catch (error) {
-      setFormErrors(error.response.data.errors);
+      setFormErrors(error.errors);
     }
   };
 

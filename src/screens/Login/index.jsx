@@ -1,9 +1,12 @@
-import { useState } from 'react';
-import Auth from '../../helpers/auth';
+import { useContext, useState } from 'react';
+import Auth from 'helpers/auth';
 import Input from 'components/Input';
 import FormError from 'components/FormError';
+import { Redirect } from 'react-router-dom';
+import UserContext from 'contexts/User';
 
 const Login = () => {
+  const { user, setUser } = useContext(UserContext);
   const [formErrors, setFormErrors] = useState([]);
   const [isFormProcessing, setIsFormProcessing] = useState(false);
 
@@ -15,17 +18,26 @@ const Login = () => {
     const formData = new FormData(event.target);
 
     try {
-      await Auth.login(formData.get('email'), formData.get('password'));
-      alert('Success');
+      const user = await Auth.login(
+        formData.get('email'),
+        formData.get('password')
+      );
+
+      setUser(user);
     } catch (error) {
+      setIsFormProcessing(false);
       setFormErrors(error.errors);
     }
-
-    setIsFormProcessing(false);
   };
 
+  const hasError = formErrors.length > 0;
+
+  if (user) {
+    return <Redirect to="/" />;
+  }
+
   return (
-    <div className="login-screen">
+    <div className="screen screen__login">
       <form id="loginForm" className="form" onSubmit={handleSubmit}>
         <legend>Sign in to Nimble</legend>
 

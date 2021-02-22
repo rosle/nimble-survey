@@ -1,4 +1,5 @@
-import request from 'helpers/requestManager';
+import requestManager from 'helpers/requestManager';
+import tokenManager from 'helpers/tokenManager';
 
 const Auth = () => {
   const api_secret = {
@@ -14,15 +15,29 @@ const Auth = () => {
       ...api_secret,
     };
 
-    return request({
+    return requestManager.request({
       method: 'post',
       url: '/api/v1/oauth/token',
       data: data,
     });
   };
 
+  const logout = () => {
+    const data = {
+      token: tokenManager.getAccessToken(),
+      ...api_secret,
+    };
+
+    return requestManager.request({
+      method: 'post',
+      url: '/api/v1/oauth/revoke',
+      data: data,
+    });
+  };
+
   return {
     login,
+    logout,
   };
 };
 

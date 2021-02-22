@@ -3,10 +3,12 @@ import { login } from 'services/api/auth';
 
 const Login = () => {
   const [formErrors, setFormErrors] = useState([]);
+  const [isFormProcessing, setIsFormProcessing] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setFormErrors([]);
+    setIsFormProcessing(true);
 
     const credentials = {
       email: document.getElementById('email').value,
@@ -14,18 +16,22 @@ const Login = () => {
     };
 
     try {
-      const response = await login(credentials);
-      console.log(response);
+      await login(credentials);
+
+      // TODO: Store tokens and redirect to survey list
+      alert('Success');
     } catch (error) {
       setFormErrors(error.errors);
     }
+
+    setIsFormProcessing(false);
   };
 
   const hasError = formErrors.length > 0;
 
   return (
     <div className="login-screen">
-      <form className="form" onSubmit={handleSubmit}>
+      <form id="loginForm" className="form" onSubmit={handleSubmit}>
         <legend>Sign in to Nimble</legend>
 
         {hasError && (
@@ -51,7 +57,7 @@ const Login = () => {
         </div>
 
         <div className="form__action">
-          <input type="submit" value="Sign in" />
+          <input type="submit" value="Sign in" disabled={isFormProcessing} />
         </div>
       </form>
     </div>

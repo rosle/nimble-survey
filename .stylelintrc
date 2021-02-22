@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "stylelint-config-sass-guidelines",
+    "stylelint-config-idiomatic-order"
+  ],
+  "rules": {
+    "indentation": 2
+  }
+}

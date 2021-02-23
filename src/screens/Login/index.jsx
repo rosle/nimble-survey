@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { login } from 'services/api/auth';
+import Auth from '../../services/auth';
+import Input from 'components/Input';
+import FormError from 'components/FormError';
 
 const Login = () => {
   const [formErrors, setFormErrors] = useState([]);
@@ -10,15 +12,10 @@ const Login = () => {
     setFormErrors([]);
     setIsFormProcessing(true);
 
-    const credentials = {
-      email: document.getElementById('email').value,
-      password: document.getElementById('password').value,
-    };
+    const formData = new FormData(event.target);
 
     try {
-      await login(credentials);
-
-      // TODO: Store tokens and redirect to survey list
+      await Auth.login(formData.get('email'), formData.get('password'));
       alert('Success');
     } catch (error) {
       setFormErrors(error.errors);
@@ -27,37 +24,24 @@ const Login = () => {
     setIsFormProcessing(false);
   };
 
-  const hasError = formErrors.length > 0;
-
   return (
     <div className="login-screen">
       <form id="loginForm" className="form" onSubmit={handleSubmit}>
         <legend>Sign in to Nimble</legend>
 
-        {hasError && (
-          <div className="form__error">
-            <div className="form__error-title">Error</div>
-            <ul>
-              {formErrors.map((error, index) => (
-                <li key={index}>{error.detail}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <FormError errors={formErrors} />
 
         <div className="form__group">
-          <label htmlFor="email">Email</label>
-          <input id="email" type="email" className="email" required />
+          <Input name="email" type="email" label="Email" required />
         </div>
 
         <div className="form__group">
-          <label htmlFor="password">Password</label>
-          <input id="password" type="password" className="password" required />
+          <Input name="password" type="password" label="Password" required />
           <a href="/">Forgot?</a>
         </div>
 
         <div className="form__action">
-          <input type="submit" value="Sign in" disabled={isFormProcessing} />
+          <Input type="submit" value="Sign in" disabled={isFormProcessing} />
         </div>
       </form>
     </div>

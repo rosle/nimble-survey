@@ -35,9 +35,24 @@ const Auth = () => {
     });
   };
 
+  const refreshToken = () => {
+    const data = {
+      grant_type: 'refresh_token',
+      refresh_token: tokenManager.getRefreshToken(),
+      ...api_secret,
+    };
+
+    return requestManager.request({
+      method: 'post',
+      url: '/api/v1/oauth/token',
+      data: data,
+    });
+  };
+
   return {
     login,
     logout,
+    refreshToken,
   };
 };
 

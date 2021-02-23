@@ -1,6 +1,7 @@
 import { useContext } from 'react';
+
+import { UserContext } from 'contexts/User';
 import Auth from 'helpers/auth';
-import UserContext from 'contexts/User';
 
 const SurveyList = () => {
   const { user, setUser } = useContext(UserContext);
@@ -19,11 +20,11 @@ const SurveyList = () => {
   return (
     <div className="screen screen__survey-list">
       <div className="user-profile">
-        <img src={user.avatarUrl} />
+        <img src={user.avatarUrl} alt="avatar" />
         <span>{user.email}</span>
-        <a href="#" onClick={handleLogOut}>
+        <button type="button" onClick={handleLogOut}>
           Logout
-        </a>
+        </button>
       </div>
     </div>
   );

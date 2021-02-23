@@ -1,9 +1,13 @@
 import axios from 'axios';
 
+import refreshToken from 'helpers/requestInterceptors/refreshToken';
+
 const requestManager = () => {
   const client = axios.create({
     baseURL: process.env.REACT_APP_BASE_API_URL,
   });
+
+  refreshToken(client);
 
   const request = async (options) => {
     try {

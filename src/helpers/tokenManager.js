@@ -1,5 +1,5 @@
-const ACCESS_TOKEN = 'access_token';
-const REFRESH_TOKEN = 'refresh_token';
+const ACCESS_TOKEN = 'accessToken';
+const REFRESH_TOKEN = 'refreshToken';
 
 const tokenManager = () => {
   const setToken = ({
@@ -14,6 +14,10 @@ const tokenManager = () => {
     return localStorage.getItem(ACCESS_TOKEN);
   };
 
+  const getRefreshToken = () => {
+    return localStorage.getItem(REFRESH_TOKEN);
+  };
+
   const clearToken = () => {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
@@ -22,6 +26,7 @@ const tokenManager = () => {
   return {
     setToken,
     getAccessToken,
+    getRefreshToken,
     clearToken,
   };
 };

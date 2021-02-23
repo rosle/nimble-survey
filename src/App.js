@@ -1,27 +1,39 @@
+import { BrowserRouter as Router } from 'react-router-dom';
+import UserApi from 'adapters/api/user';
+import Routes from 'routes';
+
+import { UserContextProvider } from 'contexts/User';
+
 import logo from 'assets/images/logo.svg';
 import './App.scss';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from 'routes';
-import { useState } from 'react';
-import UserContext from 'contexts/User';
-import sessionManager from 'helpers/sessionManager';
 
 function App() {
-  const [user, setUser] = useState(sessionManager.getUser());
+  // TODO: Remove this, only for testing
+  const getUser = async () => {
+    try {
+      const {
+        data: { attributes: user },
+      } = await UserApi.getProfile();
+
+      console.log(`Get user success ${user}`);
+    } catch (error) {
+      console.log('Get user error');
+    }
+  };
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContextProvider>
       <Router>
         <div className="App">
           <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
+            <img src={logo} className="App-logo" alt="logo" onClick={getUser} />
           </header>
           <main>
             <Routes />
           </main>
         </div>
       </Router>
-    </UserContext.Provider>
+    </UserContextProvider>
   );
 }
 

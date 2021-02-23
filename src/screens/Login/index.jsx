@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react';
-import Auth from 'helpers/auth';
-import Input from 'components/Input';
-import FormError from 'components/FormError';
 import { Redirect } from 'react-router-dom';
-import UserContext from 'contexts/User';
+
+import { UserContext } from 'contexts/User';
+import Auth from 'helpers/auth';
+
+import FormError from 'components/FormError';
+import Input from 'components/Input';
 
 const Login = () => {
   const { user, setUser } = useContext(UserContext);
@@ -29,8 +31,6 @@ const Login = () => {
       setFormErrors(error.errors);
     }
   };
-
-  const hasError = formErrors.length > 0;
 
   if (user) {
     return <Redirect to="/" />;

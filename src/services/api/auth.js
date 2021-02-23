@@ -1,4 +1,4 @@
-import request from 'utils/requestManager';
+import request from 'helpers/requestManager';
 
 const api_secret = {
   client_id: process.env.REACT_APP_CLIENT_ID,

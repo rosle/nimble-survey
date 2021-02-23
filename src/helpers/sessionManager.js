@@ -1,11 +1,8 @@
 const USER = 'user';
 
 const sessionManager = () => {
-  const setUser = ({ email, avatar_url: avatarUrl }) => {
-    localStorage.setItem(
-      USER,
-      JSON.stringify({ email: email, avatarUrl: avatarUrl })
-    );
+  const setUser = (user) => {
+    localStorage.setItem(USER, JSON.stringify(user));
   };
 
   const getUser = () => {

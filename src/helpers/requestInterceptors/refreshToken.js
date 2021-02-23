@@ -1,5 +1,4 @@
 import Auth from 'helpers/auth';
-// import sessionManager from 'helpers/sessionManager';
 import tokenManager from 'helpers/tokenManager';
 
 const refreshToken = (client) => {
@@ -17,9 +16,7 @@ const refreshToken = (client) => {
 
         return client(originalRequest);
       } catch {
-        // Need to logout?
-        // tokenManager.clearToken();
-        // sessionManager.clearSession();
+        window.location.href = '/';
       }
     }
 

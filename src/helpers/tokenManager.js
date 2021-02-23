@@ -2,10 +2,7 @@ const ACCESS_TOKEN = 'accessToken';
 const REFRESH_TOKEN = 'refreshToken';
 
 const tokenManager = () => {
-  const setToken = ({
-    access_token: accessToken,
-    refresh_token: refreshToken,
-  }) => {
+  const setToken = ({ accessToken, refreshToken }) => {
     localStorage.setItem(ACCESS_TOKEN, accessToken);
     localStorage.setItem(REFRESH_TOKEN, refreshToken);
   };

@@ -7,11 +7,15 @@ import tokenManager from 'helpers/tokenManager';
 const Auth = () => {
   const login = async (email, password) => {
     try {
-      const {data: { attributes: token }} = await AuthApi.login({ email, password });
+      const {
+        data: { attributes: token },
+      } = await AuthApi.login({ email, password });
 
       tokenManager.setToken(token);
 
-      const {data: { attributes: user }} = await UserApi.getProfile();
+      const {
+        data: { attributes: user },
+      } = await UserApi.getProfile();
 
       sessionManager.setUser(user);
 
@@ -39,10 +43,15 @@ const Auth = () => {
 
   const refreshToken = async () => {
     try {
-      const { data: { attributes: token }} = await AuthApi.refreshToken();
+      const {
+        data: { attributes: token },
+      } = await AuthApi.refreshToken();
 
       tokenManager.setToken(token);
     } catch (error) {
+      tokenManager.clearToken();
+      sessionManager.clearSession();
+
       return Promise.reject(error);
     }
   };

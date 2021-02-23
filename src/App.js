@@ -1,7 +1,7 @@
 import logo from 'assets/images/logo.svg';
 import './App.scss';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from 'screens/Login';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from 'routes';
 
 function App() {
   return (
@@ -11,11 +11,7 @@ function App() {
           <img src={logo} className="App-logo" alt="logo" />
         </header>
         <main>
-          <Switch>
-            <Route path="/">
-              <Login />
-            </Route>
-          </Switch>
+          <Routes />
         </main>
       </div>
     </Router>

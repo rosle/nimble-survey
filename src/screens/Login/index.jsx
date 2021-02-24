@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Auth from '../../services/auth';
+import Auth from '../../helpers/auth';
 import Input from 'components/Input';
 import FormError from 'components/FormError';
 

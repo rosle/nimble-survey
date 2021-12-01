@@ -8,7 +8,9 @@ const FormError = ({ errors }) => {
       <div className="form__error-title">Error</div>
       <ul>
         {errors.map((error, index) => (
-          <li key={index}>{error.detail}</li>
+          <li key={index} data-testid="form-error-list-item">
+            {error.detail}
+          </li>
         ))}
       </ul>
     </div>

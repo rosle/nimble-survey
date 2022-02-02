@@ -2,17 +2,17 @@ import requestManager from 'helpers/requestManager';
 import tokenManager from 'helpers/tokenManager';
 
 const Auth = () => {
-  const api_secret = {
+  const api_secret = () => ({
     client_id: process.env.REACT_APP_CLIENT_ID,
     client_secret: process.env.REACT_APP_CLIENT_SECRET,
-  };
+  });
 
   const login = ({ email, password }) => {
     const data = {
       grant_type: 'password',
       email: email,
       password: password,
-      ...api_secret,
+      ...api_secret(),
     };
 
     return requestManager.request({
@@ -25,7 +25,7 @@ const Auth = () => {
   const logout = () => {
     const data = {
       token: tokenManager.getAccessToken(),
-      ...api_secret,
+      ...api_secret(),
     };
 
     return requestManager.request({
@@ -39,7 +39,7 @@ const Auth = () => {
     const data = {
       grant_type: 'refresh_token',
       refresh_token: tokenManager.getRefreshToken(),
-      ...api_secret,
+      ...api_secret(),
     };
 
     return requestManager.request({

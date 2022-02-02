@@ -1,11 +1,11 @@
 import requestManager from 'helpers/requestManager';
 import tokenManager from 'helpers/tokenManager';
-import { useMockedEnv } from 'testHelpers';
+import { useEnvMock } from 'testHelpers';
 
 import Auth from './auth';
 
 describe('Auth', () => {
-  useMockedEnv({
+  useEnvMock({
     REACT_APP_CLIENT_ID: 'CLIENT_ID',
     REACT_APP_CLIENT_SECRET: 'CLIENT_SECRET',
   });

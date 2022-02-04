@@ -1,13 +1,16 @@
-import { capitalize } from 'lodash';
+import { camelCase } from 'lodash';
 
-const Input = ({ object, name, label, ...rest }) => {
-  const input_id = object ? `${object}${capitalize(name)}` : name;
-  const input_name = object ? `${object}[${name}]` : name;
+const Input = ({ name, label, ...rest }) => {
+  const id = camelCase(name);
 
   return (
     <>
-      {label && <label htmlFor={input_id}>{label}</label>}
-      <input id={input_id} name={input_name} {...rest} />
+      {label && (
+        <label htmlFor={id} data-testid="input-label">
+          {label}
+        </label>
+      )}
+      <input id={id} name={name} data-testid="input" {...rest} />
     </>
   );
 };

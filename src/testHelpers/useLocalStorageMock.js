@@ -1,16 +1,3 @@
-const useEnvMock = (mockEnv = {}) => {
-  const env = process.env;
-
-  beforeEach(() => {
-    jest.resetModules();
-    process.env = { ...env, ...mockEnv };
-  });
-
-  afterEach(() => {
-    process.env = env;
-  });
-};
-
 const localStorageMock = () => {
   let store = {};
 
@@ -43,4 +30,4 @@ const useLocalStorageMock = () => {
   return myLocalStorageMock;
 };
 
-export { useEnvMock, useLocalStorageMock };
+export default useLocalStorageMock;
